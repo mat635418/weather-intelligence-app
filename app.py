@@ -300,7 +300,7 @@ def weather_personality(score, wcode):
 
 # === HELPER: CIRCLE POINTS ==================================================
 def circle_points(center_lat, center_lon, radius_km, n=60):
-    R = 6371  # Earth's mean radius in kilometres
+    R = 6371  # Earth's mean radius in km
     lats, lons = [], []
     for i in range(n + 1):
         angle = 2 * math.pi * i / n
@@ -1093,8 +1093,11 @@ if search_clicked or city:
     with tab5:
         precip_p0_map = hr_precip[0] if hr_precip else 0
 
-        # Build 5x5 grid: 25 points spanning ~165 km in each direction (0.75 deg steps)
-        offsets = [-1.5, -0.75, 0.0, 0.75, 1.5]
+        # Build 5×5 grid of 25 points ±1.5° around the city (step 0.75° ≈ 83 km).
+        # All fetch_current_only calls are cached (ttl=1800 s) so subsequent renders
+        # are instant; only the very first load triggers network requests.
+        _GRID_STEP = 0.75  # degrees (~83 km at equator)
+        offsets = [i * _GRID_STEP for i in range(-2, 3)]   # [-1.5, -0.75, 0, 0.75, 1.5]
         grid_lats, grid_lons, grid_temps, grid_speeds, grid_dirs = [], [], [], [], []
         for dlat in offsets:
             for dlon in offsets:
@@ -1143,6 +1146,7 @@ if search_clicked or city:
             ))
 
         # Enhancement 3: Nearby cities comparison pins
+        # fetch_current_only results are cached so these 4 calls are instant after first load
         nearby = find_nearby_cities(lat, lon)
         if nearby:
             nc_lats, nc_lons, nc_labels = [], [], []

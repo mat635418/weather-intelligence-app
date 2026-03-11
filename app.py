@@ -188,6 +188,8 @@ PLOT_LAYOUT = dict(
     xaxis=dict(showgrid=True, gridcolor="#F0F4FF", zeroline=False),
     yaxis=dict(showgrid=True, gridcolor="#F0F4FF", zeroline=False),
 )
+# Base layout without yaxis — use when providing a custom yaxis in update_layout
+PLOT_LAYOUT_NO_YAXIS = {k: v for k, v in PLOT_LAYOUT.items() if k != "yaxis"}
 
 # ─── HEADER ──────────────────────────────────────────────────────────────────
 st.markdown("""
@@ -365,7 +367,7 @@ if search_clicked or city:
                 marker=dict(size=8, color="#4A90D9"),
             ))
             fig7.update_layout(
-                **PLOT_LAYOUT,
+                **PLOT_LAYOUT_NO_YAXIS,
                 title="7-Day Temperature & Precipitation",
                 title_font=dict(size=16, color="#1A1A2E"),
                 legend=dict(orientation="h", y=1.12),
@@ -426,7 +428,7 @@ if search_clicked or city:
                 ],
             ))
             fig_pp.update_layout(
-                **PLOT_LAYOUT,
+                **PLOT_LAYOUT_NO_YAXIS,
                 title="Precipitation Probability — Next 24h",
                 title_font=dict(size=15, color="#1A1A2E"),
                 yaxis=dict(title="%", range=[0, 100], showgrid=True, gridcolor="#F0F4FF"),

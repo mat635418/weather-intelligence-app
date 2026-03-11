@@ -204,10 +204,10 @@ with col_input:
     city = st.text_input("🔍 City", value="Paris", label_visibility="collapsed",
                          placeholder="Enter any city in the world…")
 with col_btn:
-    go = st.button("Get Weather ➜", use_container_width=True, type="primary")
+    search_clicked = st.button("Get Weather ➜", use_container_width=True, type="primary")
 
 # ─── MAIN LOGIC ──────────────────────────────────────────────────────────────
-if go or city:
+if search_clicked or city:
     with st.spinner(f"Fetching intelligence for **{city}**…"):
         geo = geocode(city)
 

@@ -274,9 +274,9 @@ if go or city:
     df_daily["day_name"] = df_daily["date"].dt.strftime("%a")
 
     # ── TABS ──────────────────────────────────────────────────────────────────
-tab1, tab2, tab3, tab4, tab5 = st.tabs([
-    "🌡️ Now", "📅 7-Day Forecast", "🕐 Hourly", "💨 Air Quality", "🗺️ Map"
-])
+    tab1, tab2, tab3, tab4, tab5 = st.tabs([
+        "🌡️ Now", "📅 7-Day Forecast", "🕐 Hourly", "💨 Air Quality", "🗺️ Map"
+    ])
 
     # ═══════════════════════════════════════════════════════════════════════
     # TAB 1 — NOW
